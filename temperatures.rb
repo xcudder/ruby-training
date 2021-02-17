@@ -1,12 +1,14 @@
 class Converter
-	@option = 0
+	def initialize()
+        @option = 0
+    end
 
 	def celsius_to_fahrenheit(temperature)
-		(temperature.to_f * 9/5) + 32
+		(temperature * 9/5) + 32
 	end
 
 	def fahrenheit_to_celsius(temperature)
-		(temperature − 32) * 5/9
+		(temperature - 32) * 5/9
 	end
 
 	def show_menu()
@@ -20,10 +22,10 @@ class Converter
 	def ask_temperature()
 		if(@option == 1)
 			puts "Celsius?"
-			puts celsius_to_fahrenheit(gets)
+			puts celsius_to_fahrenheit(gets.to_f)
 		elsif (@option == 2)
 			puts "Fahrenheits?"
-			puts fahrenheit_to_celsius(gets)
+			puts fahrenheit_to_celsius(gets.to_f)
 		end
 	end
 end
