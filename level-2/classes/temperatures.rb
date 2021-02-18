@@ -13,7 +13,11 @@ class Converter
 
 	def show_menu()
 		loop do
-			puts "Converter\n1 - celsius to fahrenheit\n2 - fahrenheit to celsius"
+			puts [
+				"Converter",
+				"1 - celsius to fahrenheit",
+				"2 - fahrenheit to celsius"
+			]
 			@option = gets.to_i
 			break if @option == 1 || @option == 2
 		end
@@ -29,8 +33,3 @@ class Converter
 		end
 	end
 end
-
-converter = Converter.new
-
-converter.show_menu()
-converter.ask_temperature()

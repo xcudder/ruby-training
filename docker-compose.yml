@@ -5,8 +5,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    
+    volumes:
+      - .:/code
     stdin_open: true
     tty: true
 
-    container_name: ruby_training 
+    container_name: ruby_training

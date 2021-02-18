@@ -14,7 +14,11 @@ class Tournament
     end
 
 	def show_menu()
-		puts "Tournament\nInsert scores in the 'Team <letter> <number> x <number> Team <letter> ' format\nType 'Exit' to exit and see the tournament table"
+		puts [
+			"Tournament",
+			"Insert scores in the 'Team <letter> <number> x <number> Team <letter> ' format",
+			"Type 'Exit' to exit and see the tournament table"
+		]
 
 		loop do
 			puts "Enter score:"
@@ -51,9 +55,3 @@ class Tournament
 		end
 	end
 end
-
-tournament = Tournament.new
-
-tournament.show_menu()
-tournament.calculate_points()
-tournament.show_table()
