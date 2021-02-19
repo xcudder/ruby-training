@@ -1,57 +1,66 @@
-class Tournament
-	def initialize()
-        # @scores = []
-        @scores = [
-			"Team A 3 x 1 Team B",
-			"Team C 0 x 0 Team D",
-			"Team A 1 x 1 Team C",
-			"Team B 2 x 3 Team D",
-			"Team A 2 x 1 Team D",
-			"Team B 3 x 1 Team C"
-        ]
+require './classes/match.rb'
+require './classes/team.rb'
 
-        @teams = {}
+class Tournament
+	def initialize(input)
+        @matches    = []
+        @scores     = input
+        @teams      = {}
     end
 
 	def show_menu()
 		puts [
-			"Tournament",
-			"Insert scores in the 'Team <letter> <number> x <number> Team <letter> ' format",
-			"Type 'Exit' to exit and see the tournament table"
+			'Tournament',
+			'Insert scores in the "Team <letter> <number> x <number> Team <letter>" format',
+			'Type "Exit" to exit and see the tournament table'
 		]
 
 		loop do
-			puts "Enter score:"
+			puts 'Enter score:'
 			input = gets.chomp
-			break if input == "Exit"
+			break if input == 'Exit'
 			@scores.push input
 		end
 	end
 
-	def calculate_points()
-		@scores.each do |score_string|
-			tmp = score_string.split(' x ')
-			tmp[0] = tmp[0].split(' ')
-			tmp[1] = tmp[1].split(' ')
+    private def extract_teams()
+        home_team = ''
+        away_team = ''
 
-			if(tmp[0][2].to_i > tmp[1][0].to_i)
-				@teams[tmp[0][1]] ||= 0
-				@teams[tmp[0][1]] += 3
-			elsif (tmp[0][2].to_i > tmp[1][0].to_i)
-				@teams[tmp[1][2]] ||= 0
-				@teams[tmp[1][2]] += 3
-			else
-				@teams[tmp[0][1]] ||= 0
-				@teams[tmp[0][1]] += 1
-				@teams[tmp[1][2]] ||= 0
-				@teams[tmp[1][2]] += 1
-			end
-		end
+        @scores.each do |score_string|
+            home_team = Team.extract_home_team_name score_string
+            away_team = Team.extract_away_team_name score_string
+
+            if(!@teams.key?(home_team))
+                @teams[home_team] = Team.new(home_team)
+            end
+
+            if(!@teams.key?(away_team))
+                @teams[away_team] = Team.new(away_team)
+            end
+        end
+    end
+
+    private def run_matches()
+        @scores.each do |score_string|
+            home_team = Team.extract_home_team_name score_string
+            away_team = Team.extract_away_team_name score_string
+
+            home_team = @teams[home_team]
+            away_team = @teams[away_team]
+
+            @matches.push Match.new(home_team, away_team, score_string)
+        end
+    end
+
+	def run_tournament()
+        self.extract_teams
+        self.run_matches
 	end
 
 	def show_table()
-		@teams.sort_by { |team, points| points }.reverse.each do |team, points|
-			puts "Team: " + team + " | Points: " + points.to_s
-		end
+		@teams.sort_by { |team_name, team_numbers| team_numbers.points }.reverse.each do |team_name, team_numbers|
+            puts "Team: " + team_name + " | Points: " + team_numbers.points.to_s
+        end
 	end
 end
