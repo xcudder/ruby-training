@@ -1,5 +1,6 @@
 class Product
-    attr_accessor :product_name, :price
+
+    @@type_discounts = {}
 
     def initialize(product_name, price)
         @product_name   = product_name
@@ -7,22 +8,34 @@ class Product
         @discount       = 0
     end
 
-    def show_info
-        if(type == "Book")
-            puts "Name:#{@product_name.ljust(20)} Price:#{self.get_price.to_s.ljust(10)} Type:#{@type.ljust(10)} Category:#{@category}"
-        end
-
-        if(type == "Game")
-            puts "Name:#{@product_name.ljust(20)} Price:#{self.get_price.to_s.ljust(10)} Type:#{@type.ljust(10)} Platform:#{@platform}"
-        end
+    def get_price
+        raise 'Method not implemented'
     end
 
-    def apply_discount(discount)
-        if(discount > 1)
-            raise "Discount can only range from 0.0 to 1.0"
-        end
+    def show_info
+        raise 'Method not implemented'
+    end
+
+    def apply_product_specific_discount(discount)
+        raise 'Discount can only range from 0.0 to 1.0' if discount >= 1 and discount <= 0
 
         @discount = discount
         return @price - @discount
+    end
+
+    def set_discount_percentage_across_products_of_the_same_type(percentage)
+       @@type_discounts[@type] = percentage
+    end
+
+    def get_price
+        final_price = @price
+
+        final_price = final_price - @discount
+
+        if(@@type_discounts[@type])
+            final_price = final_price / 100 * (100 - @@type_discounts[@type])
+        end
+
+        return final_price.round(2)
     end
 end
