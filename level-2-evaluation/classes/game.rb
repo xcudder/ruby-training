@@ -11,8 +11,8 @@ class Game < Product
         super(product_name, price)
     end
 
-    def show_info
-        puts "Name:#{@product_name.ljust(20)} Price:#{self.get_price.to_s.ljust(10)} Type:Game Platform:#{@platform}"
+    def to_s
+        "Name:#{@product_name.ljust(20)} Price:#{self.get_price.to_s.ljust(10)} Type:Game Platform:#{@platform}"
     end
 
 end

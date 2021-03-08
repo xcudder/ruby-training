@@ -17,7 +17,7 @@ class Product
     end
 
     def apply_product_specific_discount(discount)
-        raise 'Discount can only range from 0.0 to 1.0' if discount >= 1 or discount <= 0
+        raise 'Discount can only range from 0.0 to 1.0' if discount > 1 or discount < 0
 
         @discount = discount
         return @price - @discount
@@ -37,5 +37,9 @@ class Product
         end
 
         return final_price.round(2)
+    end
+
+    def show_info
+        puts self
     end
 end
