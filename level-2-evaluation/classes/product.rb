@@ -1,5 +1,9 @@
 class Product
 
+    require_relative '../modules/logging.rb'
+
+    include Logging
+
     @@type_discounts = {}
 
     def initialize(product_name, price)
@@ -9,15 +13,15 @@ class Product
     end
 
     def get_price
-        raise 'Method not implemented'
+        raise NoMethodError.new('Method not implemented at the abstract class level')
     end
 
     def show_info
-        raise 'Method not implemented'
+        raise NoMethodError.new('Method not implemented at the abstract class level')
     end
 
     def apply_product_specific_discount(discount)
-        raise 'Discount can only range from 0.0 to 1.0' if discount > 1 or discount < 0
+        raise ArgumentError.new('Discount can only range from 0.0 to 1.0') if discount > 1 or discount < 0
 
         @discount = discount
         return @price - @discount

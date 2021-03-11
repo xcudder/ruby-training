@@ -4,7 +4,10 @@ class Book < Product
 
     def initialize(product_name = 'TBD', price = 0.00, category = '')
         valid_categories = [:adventure, :romance, :scifi, :horror]
-        raise 'Invalid category' unless valid_categories.include? category
+
+        raise ArgumentError.new(
+            "Provided category \"#{category}\" Is invalid"
+        ) unless valid_categories.include? category
 
         @type       = :Book
         @category   = category

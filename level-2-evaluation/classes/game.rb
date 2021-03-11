@@ -4,7 +4,10 @@ class Game < Product
 
     def initialize(product_name = 'TBD', price = 0.00, platform = '')
         valid_platforms = [:PS4, :XBox, :PC]
-        raise 'Invalid platform' unless valid_platforms.include? platform
+
+        raise ArgumentError.new(
+            "Provided platform \"#{platform}\" Is invalid"
+        ) unless valid_platforms.include? platform
 
         @type       = :Game
         @platform   = platform
