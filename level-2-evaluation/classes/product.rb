@@ -1,15 +1,18 @@
+require_relative '../modules/logging.rb'
+
 class Product
-
-    require_relative '../modules/logging.rb'
-
     include Logging
 
     @@type_discounts = {}
 
     def initialize(product_name, price)
-        @product_name   = product_name
-        @price          = price
-        @discount       = 0
+        begin
+            @product_name   = product_name
+            @price          = price
+            @discount       = 0
+        rescue StandardError => e
+            log e.message, :ERROR
+        end
     end
 
     def get_price
@@ -21,10 +24,13 @@ class Product
     end
 
     def apply_product_specific_discount(discount)
-        raise ArgumentError.new('Discount can only range from 0.0 to 1.0') if discount > 1 or discount < 0
-
-        @discount = discount
-        return @price - @discount
+        begin
+            raise ArgumentError.new('Discount can only range from 0.0 to 1.0') if discount > 1 or discount < 0
+            @discount = discount
+            return @price - @discount
+        rescue StandardError => e
+            log e.message, :ERROR
+        end
     end
 
     def set_discount_percentage_across_products_of_the_same_type(percentage)
@@ -32,15 +38,14 @@ class Product
     end
 
     def get_price
-        final_price = @price
-
-        final_price = final_price - @discount
-
-        if(@@type_discounts[@type])
-            final_price = final_price / 100 * (100 - @@type_discounts[@type])
+        begin
+            final_price = @price
+            final_price = final_price - @discount
+            final_price = final_price / 100 * (100 - @@type_discounts[@type]) if @@type_discounts[@type]
+            return final_price.round(2)
+        rescue StandardError => e
+            log e.message, :ERROR
         end
-
-        return final_price.round(2)
     end
 
     def show_info

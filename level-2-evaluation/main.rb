@@ -1,7 +1,5 @@
 require './classes/book.rb'
 require './classes/game.rb'
-
-require './modules/logging.rb'
 require './modules/error-handler.rb'
 
 # File for demo purposes only
@@ -9,12 +7,6 @@ require './modules/error-handler.rb'
 # products, books and games are showcased
 
 begin
-    Logging.log("Debug message",:DEBUG)
-    Logging.log("Info message",:INFO)
-    Logging.log("Warning message",:WARN)
-    Logging.log("Error message",:ERROR)
-    Logging.log("Fatal error message",:FATAL)
-
     product1 = Book.new('Some book',    100.00, :adventure)
     product2 = Game.new('A PC game',    200.00, :PC)
     product3 = Book.new('Another book', 50.50,  :scifi)
@@ -38,11 +30,12 @@ begin
     product1.set_discount_percentage_across_products_of_the_same_type 10
     product2.set_discount_percentage_across_products_of_the_same_type 20
 
-    product1.show_info
-    product2.show_info
-    product3.show_info
-    product4.show_info
+     #accomplishes the same as the show_info method
+    puts product1
+    puts product2
+    puts product3
+    puts product4
 
-rescue ArgumentError, NoMethodError => e
-    ErrorHandler.rescue(e)
+rescue StandardError => e
+    ErrorHandler::rescue(e)
 end
