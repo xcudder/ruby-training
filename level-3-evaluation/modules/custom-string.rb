@@ -5,7 +5,7 @@ module CustomString
         if block_given?
             yield other
         else
-            possible_operations = []
+            operation_costs = []
             original_string_length = self.length
             target_string_length = other.length
 
@@ -23,8 +23,8 @@ module CustomString
                     if self[i-1] == other[j-1]
                         comparison_matrix[i][j] = comparison_matrix[i-1][j-1]
                     else
-                        possible_operations = [comparison_matrix[i-1][j]+1, comparison_matrix[i][j-1]+1, comparison_matrix[i-1][j-1]+1]
-                        comparison_matrix[i][j] = possible_operations.min
+                        operation_costs = [comparison_matrix[i-1][j]+1, comparison_matrix[i][j-1]+1, comparison_matrix[i-1][j-1]+1]
+                        comparison_matrix[i][j] = operation_costs.min
                     end
                 end
             end
