@@ -1,6 +1,6 @@
 module CustomString
     def distance_to(other)
-        raise ArgumentError.new("distance_to cannot compare to NilClass") if other.class == NilClass
+        raise ArgumentError.new('distance_to cannot compare to NilClass') if other.class == NilClass
 
         if block_given?
             yield other
