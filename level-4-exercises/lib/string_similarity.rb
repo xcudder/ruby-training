@@ -1,5 +1,11 @@
+require_relative 'modules/custom-string.rb'
+
+class String
+    include CustomString
+end
+
 class StringSimilarity
-  def self.similarity
-    puts 3
-  end
+    def self.avaliate(original, target)
+        puts original.distance_to(target)
+    end
 end
