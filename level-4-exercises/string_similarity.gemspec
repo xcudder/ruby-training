@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'string_similarity'
-  s.version     = '0.3.0'
+  s.version     = '1.0.0'
   s.summary     = "A Levenshtein string similarity gem"
   s.description = "A string similarity gem using levenshtein distance as the default evaluation method"
   s.authors     = ["Matheus Costa"]

@@ -6,7 +6,8 @@ desc 'Avaliates the similarity between strings in a file'
     file = File.open(args[:file_path])
 
     file.read.split("\n").each do |string_pair|
-        puts "Strings \"#{string_pair}\" have a levenshtein distance of #{StringSimilarity::avaliate *string_pair.split(',')}"
+        puts "Strings \"#{string_pair}\" have a similarity of"\
+             " #{StringSimilarity::percentage *string_pair.split(',')}%"
     end
 
     file.close
