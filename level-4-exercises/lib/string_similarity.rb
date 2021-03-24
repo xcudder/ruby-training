@@ -6,6 +6,6 @@ end
 
 class StringSimilarity
     def self.avaliate(original, target)
-        puts original.distance_to(target)
+        original.distance_to(target)
     end
 end

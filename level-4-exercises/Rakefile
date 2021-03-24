@@ -2,7 +2,13 @@ require 'string_similarity'
 
 namespace :string_similarity do
 desc 'Avaliates the similarity between strings in a file'
-  task :avaliate_file do
-    StringSimilarity::avaliate "lalala", "lelele"
+  task :avaliate_file, [:file_path] do |t, args|
+    file = File.open(args[:file_path])
+
+    file.read.split("\n").each do |string_pair|
+        puts "Strings \"#{string_pair}\" have a levenshtein distance of #{StringSimilarity::avaliate *string_pair.split(',')}"
+    end
+
+    file.close
   end
 end
