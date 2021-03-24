@@ -1,0 +1,8 @@
+require 'string_similarity'
+
+namespace :string_similarity do
+desc 'Avaliates the similarity between strings in a file'
+  task :avaliate_file do
+    StringSimilarity::avaliate "lalala", "lelele"
+  end
+end
